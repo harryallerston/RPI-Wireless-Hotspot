@@ -10,7 +10,6 @@ echo "======================================================="
 echo "Installing dependencies"
 
 sudo apt-get install hostapd udhcpd
-clear
 
 cd ./config-files
 
@@ -39,6 +38,7 @@ echo "Initialising DHCP server"
 sudo service udhcpd start
 sudo update-rc.d udhcpd enable
 
-clear
+
 echo "Configuration complete! .. your access point should now be detectable by your other devices"
+
 
