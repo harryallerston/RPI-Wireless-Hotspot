@@ -12,6 +12,29 @@ sudo apt-get install hostapd udhcpd
 clear
 cd ./config-files
 echo "Configuring DHCP"
-sudo ln -s ./udhcpd.conf /etc
+sudo cp ./udhcpd.conf /etc
+sudo cp ./udhcpd /etc/default
 
+echo "Configuring interfaces"
+sudo cp ./interfaces /etc/network
 
+echo "Configuring hostapd"
+sudo cp ./hostapd.conf /etc/hostapd
+sudo cp ./hostapd /etc/default
+
+echo "Configuring NAT"
+sudo cp ./sysctl.conf /etc
+
+echo "Configuring iptables"
+sudo cp ./iptables.ipv4.nat /etc
+
+echo "Initialising access point"
+sudo service hostapd start
+sudo update-rc.d hostapd enable
+
+echo "Initialising DHCP server"
+sudo service udhcpd start
+sudo update-rc.d udhcpd enable
+
+clear
+echo "Configuration complete! .. your access point should now be detectable by your other devices"
