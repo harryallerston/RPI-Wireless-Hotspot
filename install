@@ -40,10 +40,17 @@ echo "Initialising DHCP server"
 sudo service udhcpd start
 sudo update-rc.d udhcpd enable
 
+clear 
+
 echo "================================================================"
 echo "=================== Configuration complete! ===================="
 echo "================================================================"
-echo "your access point should now be detectable by your other devices"
+
+echo "+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++"
+sleep 10
+sudo reboot
+
+
 
 
 
