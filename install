@@ -3,14 +3,17 @@
 
 clear
 
+echo "======================================================="
 echo "======== Setting up Raspberry Pi WiFi hotspot ========="
-echo " "
+echo "======================================================="
+
 echo "Installing dependencies"
 
 sudo apt-get install hostapd udhcpd
-
 clear
+
 cd ./config-files
+
 echo "Configuring DHCP"
 sudo cp ./udhcpd.conf /etc
 sudo cp ./udhcpd /etc/default
@@ -38,3 +41,4 @@ sudo update-rc.d udhcpd enable
 
 clear
 echo "Configuration complete! .. your access point should now be detectable by your other devices"
+
