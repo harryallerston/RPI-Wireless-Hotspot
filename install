@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+
+clear
+
+echo "========  Setting up Raspberry Pi WiFi hotspot  ========="
+echo " "
+echo "Installing dependencies"
+
+sudo apt-get install hostapd udhcpd
+
+clear
+cd ./config-files
+echo "Configuring DHCP"
+sudo ln -s  ./udhcpd.conf /etc
