@@ -29,6 +29,9 @@ Requirements:
 Installation:
 =============
 
+* In the terminal, run:
+    git clone https://github.com/harryallerston/RPI-Wireless-Hotspot.git
+
 * Navigate to folder, and execute "./install"
 
 * This should automatically set everything up and leave you ready to go
