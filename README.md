@@ -38,7 +38,7 @@ Notes and configuration
 =======================
 
 * to change default SSID, WPA key or WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
-* 
+
 * This setup has been tested on a fresh install of raspbian from the official downloads page
 
 * It is advised that this be set up on a fresh install
