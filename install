@@ -9,7 +9,7 @@ echo "======================================================="
 
 echo "Installing dependencies"
 
-sudo apt-get install hostapd udhcpd
+sudo apt-get -y -qq install hostapd udhcpd
 
 cd ./config-files
 
