@@ -38,7 +38,10 @@ echo "Initialising DHCP server"
 sudo service udhcpd start
 sudo update-rc.d udhcpd enable
 
+echo "================================================================"
+echo "=================== Configuration complete! ===================="
+echo "================================================================"
+echo "your access point should now be detectable by your other devices"
 
-echo "Configuration complete! .. your access point should now be detectable by your other devices"
 
 
