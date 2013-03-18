@@ -30,6 +30,8 @@ sudo cp ./sysctl.conf /etc
 echo "Configuring iptables"
 sudo cp ./iptables.ipv4.nat /etc
 
+sudo touch /var/lib/misc/udhcpd.leases
+
 echo "Initialising access point"
 sudo service hostapd start
 sudo update-rc.d hostapd enable
