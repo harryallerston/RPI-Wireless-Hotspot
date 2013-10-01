@@ -3,7 +3,7 @@
 :INPUT ACCEPT [329:440868]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [183:9684]
--A FORWARD -i eth0 -o wlan -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 COMMIT
 # Completed on Sun Feb 24 22:48:51 2013
