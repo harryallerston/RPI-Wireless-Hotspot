@@ -22,7 +22,7 @@ Requirements:
 
 1. A Raspberry Pi model B running raspbian
 
-2. A linux compatible wifi dongle, with the appropriate drivers installed
+2. A linux compatible wifi dongle, with the appropriate drivers installed (some may work in AP mode, some may not. YMMV)
 
 3. An active ethernet connection
 
