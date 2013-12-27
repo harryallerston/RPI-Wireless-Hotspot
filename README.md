@@ -47,8 +47,5 @@ Notes and configuration
 
 * It is advised that this be set up on a fresh install
 
-* if set up on an existing install it should work fine, but take note that this will overwrite certain network config files... if you have
-  not modified them then you _should_ have nothing to worry about
-
-* on some occasions, running a full "apt-get upgrade" seems to break the setup, at this point the reason is uncertain.
+* if set up on an existing install then any current config files will be backed up with the extension ".old" in the       relevant folders prior to installation (this allows returning to original network settings if required)
 
