@@ -22,7 +22,7 @@ Requirements:
 
 1. A Raspberry Pi model B running raspbian
 
-2. A linux compatible wifi dongle, with the appropriate drivers installed (some may work in AP mode, some may not. YMMV)
+2. A Raspbian compatible Wifi dongle. This script assumes that your adapter uses the nl80211 drivers in hostapd (the majority of new products should support this). Others can be made to work, but require a custom compilation of hostapd (guides are out there).
 
 3. An active ethernet connection
 
@@ -43,7 +43,7 @@ Notes and configuration
 
 * to change default SSID, WPA key or WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
 
-* This setup has been tested on a fresh install of raspbian from the official downloads page (013-02-09)
+* This setup has been tested on a fresh install of raspbian.
 
 * It is advised that this be set up on a fresh install
 
