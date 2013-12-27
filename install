@@ -13,6 +13,55 @@ sudo apt-get -y -qq install hostapd udhcpd
 
 cd ./config-files
 
+####################################################################
+#	check for and back up existing config files
+#################################################################### 
+
+echo "Backing up existing config files"
+
+if [ -f /etc/udhcpd.conf ]
+then
+    cp /etc/udhcpd.conf /etc/udhcpd.conf.old 
+fi
+
+if [ -f /etc/default/udhcpd ]
+then
+    cp /etc/default/udhcpd /etc/default/udhcpd.old
+fi
+
+if [ -f /etc/network/interfaces ]
+then
+    cp /etc/network/interfaces /etc/network/interfaces.old
+fi
+
+if [ -f /etc/hostapd/hostapd.conf ]
+then
+    cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.old
+fi
+
+if [ -f /etc/default/hostapd ]
+then
+    cp /etc/default/hostapd /etc/default/hostapd.old
+fi
+
+if [ -f /etc/sysctl.conf ]
+then
+    cp /etc/sysctl.conf /etc/sysctl.conf.old
+fi
+
+
+if [ -f /etc/iptables.ipv4.nat ]
+then
+    cp /etc/iptables.ipv4.nat /etc/iptables.ipv4.nat.old
+fi
+
+
+echo "Config Files backed up"
+
+####################################################################
+#	copy configs to relevant directories
+####################################################################
+
 echo "Configuring DHCP"
 sudo cp ./udhcpd.conf /etc
 sudo cp ./udhcpd /etc/default
@@ -47,6 +96,7 @@ echo "=================== Configuration complete! ===================="
 echo "================================================================"
 
 echo "+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++"
+echo "++++++++++++++++++++++ CTL-C to cancel ++++++++++++++++++++++++"
 sleep 10
 sudo reboot
 
