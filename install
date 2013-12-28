@@ -9,7 +9,7 @@ echo "======================================================="
 
 echo "Updating package lists"
 
-apt-get update
+apt-get -y -qq update
 
 echo "Installing dependencies"
 
