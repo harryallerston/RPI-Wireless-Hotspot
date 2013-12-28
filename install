@@ -11,6 +11,7 @@ read -r -p "This script will make changes to your system which may break some ap
 
 if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
 then
+    clear
     echo "Updating package lists"
     
     apt-get -y -qq update
