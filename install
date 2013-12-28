@@ -122,14 +122,14 @@ then
     #   option for adafruit wifi adapter or any rtl871x adapter
     #############################################################
 
-    read -r -p "Are you using an rtl871x chipset (such as one purchased via adafruit? (if in doubt, select no) [y/N] " adafruit
+    read -r -p "Are you using an rtl871x chipset (such as one purchased via Adafruit? (if in doubt, select no) [y/N] " adafruithostapd
 
-    if [[ $adafruit =~ ^([yY][eE][sS]|[yY])$ ]]
+    if [[ $adafruithostapd =~ ^([yY][eE][sS]|[yY])$ ]]
     then
         mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
         echo "Adafruit hostapd binary copied"
-        cp ./hostapd-adafruit /usr/sbin/hostapd
-        cp ./config-files/hostapd-adafruit.conf /etc/hostapd/hostapd.conf
+        cp ./hostapd_adafruit /usr/sbin/hostapd
+        cp ./config-files/hostapd_adafruit.conf /etc/hostapd/hostapd.conf
         chmod 755 /usr/sbin/hostapd
     fi
 
@@ -138,7 +138,7 @@ then
     cp ./config-files/sysctl.conf /etc
     
     echo "Configuring iptables"
-    read -r -p "Do you require Chromecast support for unblock-us? [y/N] " chromecastresponse
+    read -r -p "Do you require Chromecast support for Unblock-Us? [y/N] " chromecastresponse
     if [[ $chromecastresponse =~ ^([yY][eE][sS]|[yY])$ ]]
     then
         cp ./config-files/iptables_chromecast.ipv4.nat /etc/iptables.ipv4.nat
