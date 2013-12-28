@@ -17,7 +17,9 @@ Features:
 * Once set up, the local network facilites of the Pi will still operate as 
   normal
 
-* Allows use of alternative DNS server with easy setup
+* Allows use of alternative DNS server with easy setup (including unblock-us for removing netflix geoblocks)
+
+* Allows chromecast compatibility with unblock-us by intercepting google's DNS requests on the pi
 
 Requirements:
 -------------
@@ -40,6 +42,8 @@ Installation:
 * Confirm that you are happy for changes to be made
 
 * Choose a alternative DNS or use the default (Google)
+
+* If you require chromecast support with unblock-us select the appropriate option
 
 * This should automatically set everything up and leave you ready to go
 
