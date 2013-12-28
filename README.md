@@ -47,11 +47,11 @@ Installation:
 Notes and configuration
 =======================
 
-* to change default SSID, WPA key or WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
+* To change default SSID, WPA key or WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
 
 * This setup has been tested on a fresh install of raspbian.
 
 * It is advised that this be set up on a fresh install
 
-* if set up on an existing install then any current config files will be backed up with the extension ".old" in the       relevant folders prior to installation (this allows returning to original network settings if required)
+* If set up on an existing install then any current config files will be backed up with the extension ".old" in the       relevant folders prior to installation (this allows returning to original network settings if required)
 
