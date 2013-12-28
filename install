@@ -14,14 +14,13 @@ then
     clear
     echo "Updating package lists"
     
-    apt-get -y -qq update
+   # apt-get -y -qq update
     
     echo "Installing dependencies"
     
     apt-get -y -qq install hostapd udhcpd
     
-    cd ./config-files
-    
+        
     ####################################################################
     #	check for and back up existing config files
     #################################################################### 
@@ -79,37 +78,54 @@ then
         read -r -p "Do you wish to use Unblock-Us DNS servers? [y/N] " unblockusdnsresponse
         if [[ $unblockusdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
         then
-            cp ./udhcpd_unblockus.conf /etc/udhcpd.conf
-            cp ./udhcpd /etc/default
+            cp ./config-files/udhcpd_unblockus.conf /etc/udhcpd.conf
+            cp ./config-files/udhcpd /etc/default
         else
             read -r -p "Do you wish to use OpenDNS DNS servers? [y/N] " opendnsresponse
             if [[ $opendnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
             then
-                cp ./udhcpd_opendns.conf /etc/udhcpd.conf
-                cp ./udhcpd /etc/default
+                cp ./config-files/udhcpd_opendns.conf /etc/udhcpd.conf
+                cp ./config-files/udhcpd /etc/default
             else
                 echo "No other DNS servers available to choose from. Reverting to Google DNS."
-                cp ./udhcpd_google.conf /etc/udhcpd.conf
-                cp ./udhcpd /etc/default
+                cp ./config-files/udhcpd_google.conf /etc/udhcpd.conf
+                cp ./config-files/udhcpd /etc/default
             fi
         fi
     else
-        cp ./udhcpd_google.conf /etc/udhcpd.conf
-        cp ./udhcpd /etc/default
+        cp ./config-files/udhcpd_google.conf /etc/udhcpd.conf
+        cp ./config-files/udhcpd /etc/default
     fi
     
     echo "Configuring interfaces"
-    cp ./interfaces /etc/network
+    cp ./config-files/interfaces /etc/network
     
     echo "Configuring hostapd"
-    cp ./hostapd.conf /etc/hostapd
-    cp ./hostapd /etc/default
+    cp ./config-files/hostapd.conf /etc/hostapd
+    cp ./config-files/hostapd /etc/default
     
+
+    #############################################################
+    #   option for adafruit wifi adapter or any rtl871x adapter
+    #############################################################
+
+    read -r -p "Are you using an rtl871x chipset (such as one purchased via adafruit? (if in doubt, select no) [y/N] " adafruit
+
+    if [[ $adafruit =~ ^([yY][eE][sS]|[yY])$ ]]
+    then
+        mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
+        echo "Adafruit hostapd binary copied"
+        cp ./hostapd-adafruit /usr/sbin/hostapd
+        cp ./config-files/hostapd-adafruit.conf /etc/hostapd/hostapd.conf
+        chmod 755 /usr/sbin/hostapd
+    fi
+
+
     echo "Configuring NAT"
-    cp ./sysctl.conf /etc
+    cp ./config-files/sysctl.conf /etc
     
     echo "Configuring iptables"
-    cp ./iptables.ipv4.nat /etc
+    cp ./config-files/iptables.ipv4.nat /etc
     
     touch /var/lib/misc/udhcpd.leases
     
@@ -121,8 +137,7 @@ then
     service udhcpd start
     update-rc.d udhcpd enable
     
-    clear 
-    
+       
     echo "================================================================"
     echo "=================== Configuration complete! ===================="
     echo "================================================================"
