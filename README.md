@@ -12,7 +12,7 @@ Features:
 * The created hotspot runs automatically on boot, no extra configuration necessary
 
 * Your new network is WPA encryped, default SSID is "RaspberryPiFi", WPA key
-  is "123456789A".
+  is "0123456789A".
 
 * Once set up, the local network facilites of the Pi will still operate as 
   normal
