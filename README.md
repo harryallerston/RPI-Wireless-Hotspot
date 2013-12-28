@@ -17,6 +17,8 @@ Features:
 * Once set up, the local network facilites of the Pi will still operate as 
   normal
 
+* Allows use of alternative DNS server with easy setup
+
 Requirements:
 =============
 
@@ -36,6 +38,8 @@ Installation:
 * Navigate to folder, and execute "sudo ./install"
 
 * Confirm that you are happy for changes to be made
+
+* Choose a alternative DNS or use the default (Google)
 
 * This should automatically set everything up and leave you ready to go
 
