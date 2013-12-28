@@ -7,102 +7,114 @@ echo "======================================================="
 echo "======== Setting up Raspberry Pi WiFi hotspot ========="
 echo "======================================================="
 
-echo "Updating package lists"
+read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " response
 
-apt-get -y -qq update
-
-echo "Installing dependencies"
-
-apt-get -y -qq install hostapd udhcpd
-
-cd ./config-files
-
-####################################################################
-#	check for and back up existing config files
-#################################################################### 
-
-echo "Backing up existing config files"
-
-if [ -f /etc/udhcpd.conf ]
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
 then
-    cp /etc/udhcpd.conf /etc/udhcpd.conf.old 
+    echo "Updating package lists"
+    
+    apt-get -y -qq update
+    
+    echo "Installing dependencies"
+    
+    apt-get -y -qq install hostapd udhcpd
+    
+    cd ./config-files
+    
+    ####################################################################
+    #	check for and back up existing config files
+    #################################################################### 
+    
+    echo "Backing up existing config files"
+    
+    if [ -f /etc/udhcpd.conf ]
+    then
+        cp /etc/udhcpd.conf /etc/udhcpd.conf.old 
+    fi
+    
+    if [ -f /etc/default/udhcpd ]
+    then
+        cp /etc/default/udhcpd /etc/default/udhcpd.old
+    fi
+    
+    if [ -f /etc/network/interfaces ]
+    then
+        cp /etc/network/interfaces /etc/network/interfaces.old
+    fi
+    
+    if [ -f /etc/hostapd/hostapd.conf ]
+    then
+        cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.old
+    fi
+    
+    if [ -f /etc/default/hostapd ]
+    then
+        cp /etc/default/hostapd /etc/default/hostapd.old
+    fi
+    
+    if [ -f /etc/sysctl.conf ]
+    then
+        cp /etc/sysctl.conf /etc/sysctl.conf.old
+    fi
+    
+    
+    if [ -f /etc/iptables.ipv4.nat ]
+    then
+        cp /etc/iptables.ipv4.nat /etc/iptables.ipv4.nat.old
+    fi
+    
+    
+    echo "Config Files backed up"
+    
+    ####################################################################
+    #	copy configs to relevant directories
+    ####################################################################
+    
+    echo "Configuring DHCP"
+    cp ./udhcpd.conf /etc
+    cp ./udhcpd /etc/default
+    
+    echo "Configuring interfaces"
+    cp ./interfaces /etc/network
+    
+    echo "Configuring hostapd"
+    cp ./hostapd.conf /etc/hostapd
+    cp ./hostapd /etc/default
+    
+    echo "Configuring NAT"
+    cp ./sysctl.conf /etc
+    
+    echo "Configuring iptables"
+    cp ./iptables.ipv4.nat /etc
+    
+    touch /var/lib/misc/udhcpd.leases
+    
+    echo "Initialising access point"
+    service hostapd start
+    update-rc.d hostapd enable
+    
+    echo "Initialising DHCP server"
+    service udhcpd start
+    update-rc.d udhcpd enable
+    
+    clear 
+    
+    echo "================================================================"
+    echo "=================== Configuration complete! ===================="
+    echo "================================================================"
+    
+    echo "+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++"
+    echo "++++++++++++++++++++++ CTL-C to cancel ++++++++++++++++++++++++"
+    
+    sleep 10
+    reboot
+    
+    exit 0
+
+else
+    exit 1
+    
 fi
-
-if [ -f /etc/default/udhcpd ]
-then
-    cp /etc/default/udhcpd /etc/default/udhcpd.old
-fi
-
-if [ -f /etc/network/interfaces ]
-then
-    cp /etc/network/interfaces /etc/network/interfaces.old
-fi
-
-if [ -f /etc/hostapd/hostapd.conf ]
-then
-    cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.old
-fi
-
-if [ -f /etc/default/hostapd ]
-then
-    cp /etc/default/hostapd /etc/default/hostapd.old
-fi
-
-if [ -f /etc/sysctl.conf ]
-then
-    cp /etc/sysctl.conf /etc/sysctl.conf.old
-fi
-
-
-if [ -f /etc/iptables.ipv4.nat ]
-then
-    cp /etc/iptables.ipv4.nat /etc/iptables.ipv4.nat.old
-fi
-
-
-echo "Config Files backed up"
-
-####################################################################
-#	copy configs to relevant directories
-####################################################################
-
-echo "Configuring DHCP"
-cp ./udhcpd.conf /etc
-cp ./udhcpd /etc/default
-
-echo "Configuring interfaces"
-cp ./interfaces /etc/network
-
-echo "Configuring hostapd"
-cp ./hostapd.conf /etc/hostapd
-cp ./hostapd /etc/default
-
-echo "Configuring NAT"
-cp ./sysctl.conf /etc
-
-echo "Configuring iptables"
-cp ./iptables.ipv4.nat /etc
-
-touch /var/lib/misc/udhcpd.leases
-
-echo "Initialising access point"
-service hostapd start
-update-rc.d hostapd enable
-
-echo "Initialising DHCP server"
-service udhcpd start
-update-rc.d udhcpd enable
-
-clear 
-
-echo "================================================================"
-echo "=================== Configuration complete! ===================="
-echo "================================================================"
-
-echo "+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++"
-echo "++++++++++++++++++++++ CTL-C to cancel ++++++++++++++++++++++++"
-sleep 10
-reboot
 
 
 
