@@ -41,7 +41,12 @@ Installation:
 
 * Confirm that you are happy for changes to be made
 
-* Choose a alternative DNS or use the default (Google)
+* Choose a alternative DNS or use the default server that network uses
+  
+  You can choose from:
+  * Unblock-US
+  * OpenDNS
+  * Google
 
 * If you require Chromecast support with unblock-us select the appropriate option
 
@@ -53,10 +58,10 @@ Notes and configuration
 
 * To change default SSID, WPA key or WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
 
-* This setup has been tested on a fresh install of raspbian.
+* This setup has been tested on a fresh install of Raspbian.
 
 * It is advised that this be set up on a fresh install
 
 * If set up on an existing install then any current config files will be backed up with the extension ".old" in the       relevant folders prior to installation (this allows returning to original network settings if required)
 
-* if the hotspot shows up after installation, but your device cannot connect then ssh to your raspberry pi and restart the dhcp service using "sudo service udhcpd restart". ~~This is a known bug currently.~~ It is not a bug - It's a feature!
+* if the hotspot shows up after installation, but your device cannot connect then ssh to your Raspberry Pi and restart the DHCP service using "sudo service udhcpd restart". ~~This is a known bug currently.~~ It is not a bug - It's a feature!
