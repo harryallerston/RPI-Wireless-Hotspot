@@ -35,6 +35,8 @@ Installation:
 
 * Navigate to folder, and execute "sudo ./install"
 
+* Confirm that you are happy for changes to be made
+
 * This should automatically set everything up and leave you ready to go
 
 
