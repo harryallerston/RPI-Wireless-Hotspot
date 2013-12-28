@@ -125,7 +125,13 @@ then
     cp ./config-files/sysctl.conf /etc
     
     echo "Configuring iptables"
-    cp ./config-files/iptables.ipv4.nat /etc
+    read -r -p "Do you require chromecast support for unblock-us? [y/N] " chromecastresponse
+    if [[ $chromecastresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+    then
+        cp ./config-files/iptables-chromecast /etc/iptables.ipv4.nat
+    else
+        cp ./config-files/iptables.ipv4.nat /etc
+    fi
     
     touch /var/lib/misc/udhcpd.leases
     
