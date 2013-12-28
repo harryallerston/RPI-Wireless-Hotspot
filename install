@@ -7,9 +7,9 @@ echo "======================================================="
 echo "======== Setting up Raspberry Pi WiFi hotspot ========="
 echo "======================================================="
 
-read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " response
+read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " installconfirmresponse
 
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+if [[ $installcomfirmresponse =~ ^([yY][eE][sS]|[yY])$ ]]
 then
     clear
     echo "Updating package lists"
@@ -72,8 +72,23 @@ then
     ####################################################################
     
     echo "Configuring DHCP"
-    cp ./udhcpd.conf /etc
-    cp ./udhcpd /etc/default
+    read -r -p "Do you wish to use alternative DNS servers? [y/N] " altdnsresponse
+
+    if [[ $altdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+    then
+        read -r -p "Do you wish to use Unblock-Us DNS servers? [y/N] " unblockusdnsresponse
+            if [[ $unblockusresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+                cp ./udhcpd_unblockus.conf /etc
+                cp ./udhcpd /etc/default
+            else
+                echo "No other DNS servers available to choose from. Reverting to Google DNS."
+                cp ./udhcpd_google.conf /etc
+                cp ./udhcpd /etc/default
+            fi
+    else
+        cp ./udhcpd_google.conf /etc
+        cp ./udhcpd /etc/default
+    fi
     
     echo "Configuring interfaces"
     cp ./interfaces /etc/network
