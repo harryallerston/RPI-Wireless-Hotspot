@@ -59,3 +59,4 @@ Notes and configuration
 
 * If set up on an existing install then any current config files will be backed up with the extension ".old" in the       relevant folders prior to installation (this allows returning to original network settings if required)
 
+* if the hotspot shows up after installation, but your device cannot connect then ssh to your raspberry pi and restart the dhcp service using "sudo service udhcpd restart". This is a known bug currently.
