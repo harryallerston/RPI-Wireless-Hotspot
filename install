@@ -75,6 +75,12 @@ then
 
     if [[ $altdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
     then
+        echo "The DNS servers that can be configured are:"
+        echo "  Unblock-Us"
+        echo "  OpenDNS"
+        echo "  Google"
+        echo "If you do not select a DNS service, your network's default DNS server will selected."
+        
         read -r -p "Do you wish to use Unblock-Us DNS servers? [y/N] " unblockusdnsresponse
         if [[ $unblockusdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
         then
@@ -87,13 +93,20 @@ then
                 cp ./config-files/udhcpd_opendns.conf /etc/udhcpd.conf
                 cp ./config-files/udhcpd /etc/default
             else
-                echo "No other DNS servers available to choose from. Reverting to Google DNS."
-                cp ./config-files/udhcpd_google.conf /etc/udhcpd.conf
-                cp ./config-files/udhcpd /etc/default
+                read -r -p "Do you wish to use Google DNS servers? [y/N] " googlednsresponse
+                if [[ $googlednsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+                then
+                    cp ./config-files/udhcpd_google.conf /etc/udhcpd.conf
+                    cp ./config-files/udhcpd /etc/default
+                else
+                    echo "No other DNS servers available to choose from. Reverting to your network's default."
+                    cp ./config-files/udhcpd.conf /etc
+                    cp ./config-files/udhcpd /etc/default
+                fi
             fi
         fi
     else
-        cp ./config-files/udhcpd_google.conf /etc/udhcpd.conf
+        cp ./config-files/udhcpd.conf /etc
         cp ./config-files/udhcpd /etc/default
     fi
     
@@ -125,10 +138,10 @@ then
     cp ./config-files/sysctl.conf /etc
     
     echo "Configuring iptables"
-    read -r -p "Do you require chromecast support for unblock-us? [y/N] " chromecastresponse
+    read -r -p "Do you require Chromecast support for unblock-us? [y/N] " chromecastresponse
     if [[ $chromecastresponse =~ ^([yY][eE][sS]|[yY])$ ]]
     then
-        cp ./config-files/iptables-chromecast /etc/iptables.ipv4.nat
+        cp ./config-files/iptables_chromecast.ipv4.nat /etc/iptables.ipv4.nat
     else
         cp ./config-files/iptables.ipv4.nat /etc
     fi
@@ -160,9 +173,3 @@ then
  #   exit 1
     
 fi
-
-
-
-
-
-
