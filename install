@@ -7,9 +7,9 @@ echo "======================================================="
 echo "======== Setting up Raspberry Pi WiFi hotspot ========="
 echo "======================================================="
 
-read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " installconfirmresponse
+read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " confirm
 
-if [[ $installcomfirmresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+if [[ $confirm =~ ^([yY][eE][sS]|[yY])$ ]]
 then
     clear
     echo "Updating package lists"
@@ -77,21 +77,22 @@ then
     if [[ $altdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
     then
         read -r -p "Do you wish to use Unblock-Us DNS servers? [y/N] " unblockusdnsresponse
-            if [[ $unblockusdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+        if [[ $unblockusdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+        then
+            cp ./udhcpd_unblockus.conf /etc/udhcpd.conf
+            cp ./udhcpd /etc/default
+        else
+            read -r -p "Do you wish to use OpenDNS DNS servers? [y/N] " opendnsresponse
+            if [[ $opendnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
             then
-                cp ./udhcpd_unblockus.conf /etc/udhcpd.conf
+                cp ./udhcpd_opendns.conf /etc/udhcpd.conf
                 cp ./udhcpd /etc/default
             else
-                read -r -p "Do you wish to use OpenDNS DNS servers? [y/N] " opendnsresponse
-                if [[ $opendnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
-                then
-                    cp ./udhcpd_opendns.conf /etc/udhcpd.conf
-                    cp ./udhcpd /etc/default
-                else
-                    echo "No other DNS servers available to choose from. Reverting to Google DNS."
-                    cp ./udhcpd_google.conf /etc/udhcpd.conf
-                    cp ./udhcpd /etc/default
+                echo "No other DNS servers available to choose from. Reverting to Google DNS."
+                cp ./udhcpd_google.conf /etc/udhcpd.conf
+                cp ./udhcpd /etc/default
             fi
+        fi
     else
         cp ./udhcpd_google.conf /etc/udhcpd.conf
         cp ./udhcpd /etc/default
@@ -134,10 +135,11 @@ then
     
     exit 0
 
-else
-    exit 1
+#else
+ #   exit 1
     
 fi
+
 
 
 
