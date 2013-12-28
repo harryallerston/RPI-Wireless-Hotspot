@@ -7,9 +7,13 @@ echo "======================================================="
 echo "======== Setting up Raspberry Pi WiFi hotspot ========="
 echo "======================================================="
 
+echo "Updating package lists"
+
+apt-get update
+
 echo "Installing dependencies"
 
-sudo apt-get -y -qq install hostapd udhcpd
+apt-get -y -qq install hostapd udhcpd
 
 cd ./config-files
 
@@ -21,38 +25,38 @@ echo "Backing up existing config files"
 
 if [ -f /etc/udhcpd.conf ]
 then
-    sudo cp /etc/udhcpd.conf /etc/udhcpd.conf.old 
+    cp /etc/udhcpd.conf /etc/udhcpd.conf.old 
 fi
 
 if [ -f /etc/default/udhcpd ]
 then
-    sudo cp /etc/default/udhcpd /etc/default/udhcpd.old
+    cp /etc/default/udhcpd /etc/default/udhcpd.old
 fi
 
 if [ -f /etc/network/interfaces ]
 then
-    sudo cp /etc/network/interfaces /etc/network/interfaces.old
+    cp /etc/network/interfaces /etc/network/interfaces.old
 fi
 
 if [ -f /etc/hostapd/hostapd.conf ]
 then
-    sudo cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.old
+    cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.old
 fi
 
 if [ -f /etc/default/hostapd ]
 then
-    sudo cp /etc/default/hostapd /etc/default/hostapd.old
+    cp /etc/default/hostapd /etc/default/hostapd.old
 fi
 
 if [ -f /etc/sysctl.conf ]
 then
-    sudo cp /etc/sysctl.conf /etc/sysctl.conf.old
+    cp /etc/sysctl.conf /etc/sysctl.conf.old
 fi
 
 
 if [ -f /etc/iptables.ipv4.nat ]
 then
-    sudo cp /etc/iptables.ipv4.nat /etc/iptables.ipv4.nat.old
+    cp /etc/iptables.ipv4.nat /etc/iptables.ipv4.nat.old
 fi
 
 
@@ -63,31 +67,31 @@ echo "Config Files backed up"
 ####################################################################
 
 echo "Configuring DHCP"
-sudo cp ./udhcpd.conf /etc
-sudo cp ./udhcpd /etc/default
+cp ./udhcpd.conf /etc
+cp ./udhcpd /etc/default
 
 echo "Configuring interfaces"
-sudo cp ./interfaces /etc/network
+cp ./interfaces /etc/network
 
 echo "Configuring hostapd"
-sudo cp ./hostapd.conf /etc/hostapd
-sudo cp ./hostapd /etc/default
+cp ./hostapd.conf /etc/hostapd
+cp ./hostapd /etc/default
 
 echo "Configuring NAT"
-sudo cp ./sysctl.conf /etc
+cp ./sysctl.conf /etc
 
 echo "Configuring iptables"
-sudo cp ./iptables.ipv4.nat /etc
+cp ./iptables.ipv4.nat /etc
 
-sudo touch /var/lib/misc/udhcpd.leases
+touch /var/lib/misc/udhcpd.leases
 
 echo "Initialising access point"
-sudo service hostapd start
-sudo update-rc.d hostapd enable
+service hostapd start
+update-rc.d hostapd enable
 
 echo "Initialising DHCP server"
-sudo service udhcpd start
-sudo update-rc.d udhcpd enable
+service udhcpd start
+update-rc.d udhcpd enable
 
 clear 
 
@@ -98,7 +102,7 @@ echo "================================================================"
 echo "+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++"
 echo "++++++++++++++++++++++ CTL-C to cancel ++++++++++++++++++++++++"
 sleep 10
-sudo reboot
+reboot
 
 
 
