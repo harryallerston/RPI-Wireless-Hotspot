@@ -1,5 +1,5 @@
 RPI-Wireless-Hotspot
---------------------
+====================
 
 Configures your Raspberry Pi to use an attatched WiFi dongle as a hotspot,
 broadcasting your ethernet connection to other devices. Could be useful in hotel rooms, college dorms
@@ -7,7 +7,7 @@ or if you just don't feel like buying a router!
 
 
 Features:
-=========
+---------
 
 * The created hotspot runs automatically on boot, no extra configuration necessary
 
@@ -20,7 +20,7 @@ Features:
 * Allows use of alternative DNS server with easy setup
 
 Requirements:
-=============
+-------------
 
 1. A Raspberry Pi model B running raspbian
 
@@ -30,7 +30,7 @@ Requirements:
 
 
 Installation:
-=============
+-------------
 
 * In the terminal, run:
     git clone https://github.com/harryallerston/RPI-Wireless-Hotspot.git
@@ -45,7 +45,7 @@ Installation:
 
 
 Notes and configuration
-=======================
+-----------------------
 
 * To change default SSID, WPA key or WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
 
