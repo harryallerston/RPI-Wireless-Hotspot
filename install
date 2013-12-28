@@ -14,7 +14,7 @@ then
     clear
     echo "Updating package lists"
     
-   # apt-get -y -qq update
+    apt-get -y -qq update
     
     echo "Installing dependencies"
     
