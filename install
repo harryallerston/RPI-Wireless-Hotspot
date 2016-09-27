@@ -107,7 +107,24 @@ then
 	fi
 
 	echo "Configuring hostapd"
-	cp ./config-files/hostapd.conf /etc/hostapd
+	read -r -p "Do you want to ues the default wifi password of 0123456789A? [y/N] " altpasswordresponse
+
+	if [[ $altpasswordresponse =~ ^([yY][eE][sS]|[yY])$ ]]
+	then
+		cp ./config-files/hostapd.conf /etc/hostapd
+	else
+		_PASSWORD1="0"
+		_PASSWORD2="1"
+		read -r -s -p "Please enter a new password atleast 8 characters long (lenght is not checked): " _PASSWORD1
+		read -r -s -p "Please enter the new password again: " _PASSWORD2
+		while [ ${_PASSWORD1} != ${_PASSWORD2} ]
+		do
+			echo "Password mismatch please try again."
+			read -r -s -p "Please enter a new password atleast 8 characters long (lenght is not checked): " _PASSWORD1
+			read -r -s -p "Please enter the new password again: " _PASSWORD2
+		done
+		sed -e "s/0123456789A/${_PASSWORD1}/g" ./config-files/hostapd.conf > /etc/hostapd/hostapd.conf
+	fi
 	cp ./config-files/hostapd /etc/default
 
 
