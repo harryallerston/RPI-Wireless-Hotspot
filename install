@@ -71,7 +71,7 @@ then
 	####################################################################
 
 	echo "Configuring DHCP"
-	read -r -p "Do you wish to use alternative DNS servers? [y/N] " altdnsresponse
+	read -r -p "Do you want to use preconfigured DNS servers? [y/N] " altdnsresponse
 
 	if [[ $altdnsresponse =~ ^([yY][eE][sS]|[yY])$ ]]
 	then
@@ -93,12 +93,18 @@ then
 			fi
 		fi
 	else
-		cp ./config-files/udhcpd_google.conf /etc/udhcpd.conf
-		cp ./config-files/udhcpd /etc/default
+		read -r -p "Please enter a custom dns server address of the form xxx.xxx.xxx.xxx : " _DNS
+		read -r -p "Please enter a custom router number from 0-254 : " _ROUTER
+		sed -e "s/ROUTER/${_ROUTER}/g" -e "s/DNS/${_DNS}/" ./config-files/udhcpd_template.conf > /etc/udhcpd.conf
+		sed -e "s/ROUTER/${_ROUTER}/g" -e "s/DNS/${_DNS}/" ./config-files/udhcpd_template.conf > /etc/udhcpd.conf
 	fi
 
 	echo "Configuring interfaces"
-	cp ./config-files/interfaces /etc/network
+	if [ -n "${_ROUTER}" ]; then
+		sed -e "s/ROUTER/${_ROUTER}/g" ./config-files/interfaces-template > /etc/network/interfaces
+	else
+		cp ./config-files/interfaces /etc/network
+	fi
 
 	echo "Configuring hostapd"
 	cp ./config-files/hostapd.conf /etc/hostapd
