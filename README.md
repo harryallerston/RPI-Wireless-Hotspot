@@ -14,8 +14,7 @@ Features:
 * Your new network is WPA encryped, default SSID is "RaspberryPiFi", WPA key
   is "0123456789A".
 
-* Once set up, the local network facilites of the Pi will still operate as 
-  normal
+* Once set up, the local network facilites of the Pi will still operate as normal
 
 * Allows use of alternative DNS server with easy setup (including unblock-us for removing netflix geoblocks)
 
@@ -35,7 +34,7 @@ Installation:
 -------------
 
 * In the terminal, run:
-    git clone https://github.com/harryallerston/RPI-Wireless-Hotspot.git
+    git clone https://github.com/unixabg/RPI-Wireless-Hotspot.git
 
 * Navigate to folder, and execute "sudo ./install"
 
@@ -57,6 +56,6 @@ Notes and configuration
 
 * It is advised that this be set up on a fresh install
 
-* If set up on an existing install then any current config files will be backed up with the extension ".old" in the       relevant folders prior to installation (this allows returning to original network settings if required)
+* If set up on an existing install then any current config files will be backed up with the extension ".old" in the relevant folders prior to installation (this allows returning to original network settings if required)
 
 * if the hotspot shows up after installation, but your device cannot connect then ssh to your raspberry pi and restart the dhcp service using "sudo service udhcpd restart". This is a known bug currently.
