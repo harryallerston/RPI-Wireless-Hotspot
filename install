@@ -22,7 +22,7 @@ then
 
 
 	####################################################################
-	#	check for and back up existing config files
+	# check for and back up existing config files
 	####################################################################
 
 	echo "Backing up existing config files"
@@ -67,7 +67,7 @@ then
 	echo "Config Files backed up"
 
 	####################################################################
-	#	copy configs to relevant directories
+	# copy configs to relevant directories
 	####################################################################
 
 	echo "Configuring DHCP"
