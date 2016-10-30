@@ -1,0 +1,26 @@
+#!/bin/bash
+##################################################################################
+# The pifi-update script is designed to inject iptables rules for mac filtering.
+##################################################################################
+#
+# Set some variables to avoid mistakes
+IPTABLESHEADER="~/iptables.header"
+IPTABLESFILE="~/iptables.pifi"
+IPTABLESFOOTER="~/iptables.footer"
+
+# Dump the headder to the new truncated file
+cat ${IPTABLESHEADER} > ${IPTABLESFILE}
+
+# Dump the mac addresses to the new file
+grep yourGrepPatterm /etc/dhcp/dhcpd.conf | awk -F{ '{print $2}' | awk '{print "-A INPUT -i wlan0 -m mac --mac-source "tolower(substr($3,1,length($3)-1))" -j ACCEPT"}' >> ${IPTABLESFILE}
+
+# Dump the footer to complete the new file
+cat ${IPTABLESFOOTER} >> ${IPTABLESFILE}
+
+# Now push the completed iptables file out and reload the rules.
+for i in PiFiIP1 PiFiIP2 PiFiIPn
+do
+	scp ${IPTABLESFILE} pi@${i}:~/iptables.ipv4.nat
+	ssh pi@${i} 'sudo cp /home/pi/iptables.ipv4.nat /etc/iptables.ipv4.nat; sudo reboot'
+	done
+exit 0
