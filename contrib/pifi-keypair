@@ -1,0 +1,5 @@
+ssh pi@YourIP 'mkdir .ssh'
+scp ~/.ssh/id_rsa.pub pi@YourIP:~/.ssh/authorized_keys
+scp ./pifi.sshd_config pi@YourIP:~/sshd_config
+scp iptables.pifi pi@YourIP:~/iptables.ipv4.nat
+ssh pi@YourIP 'sudo cp /home/pi/iptables.ipv4.nat /etc/iptables.ipv4.nat;sudo cp sshd_config /etc/ssh/sshd_config; sudo reboot'
