@@ -122,6 +122,7 @@ then
 		do
 			echo "Password mismatch please try again."
 			read -r -s -p "Please enter a new password atleast 8 characters long (length is not checked): " _PASSWORD1
+			echo
 			read -r -s -p "Please enter the new password again: " _PASSWORD2
 			echo
 		done
