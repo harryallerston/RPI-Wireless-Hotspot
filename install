@@ -106,13 +106,12 @@ then
 	fi
 
 	echo "Configuring hostapd"
-	read -r -p "Do you want to ues the default wifi password of 01234567890 and ssid of RaspberryPiFi? [y/N] " althostapdresponse
+	read -r -p "Do you want to use the wifi defaults of password=0123456789A , ssid=RaspberryPiFi , and channel=8? [y/N] " althostapdresponse
 
 	if [[ $althostapdresponse =~ ^([yY][eE][sS]|[yY])$ ]]
 	then
 		cp ./config-files/hostapd.conf /etc/hostapd
 	else
-		read -r -p "Please enter a new ssid: " _SSID
 		_PASSWORD1="0"
 		_PASSWORD2="1"
 		read -r -s -p "Please enter a new password atleast 8 characters long (length is not checked): " _PASSWORD1
@@ -126,7 +125,21 @@ then
 			read -r -s -p "Please enter the new password again: " _PASSWORD2
 			echo
 		done
-		sed -e "s/0123456789A/${_PASSWORD1}/g" -e "s/RaspberryPiFi/${_SSID}/g" ./config-files/hostapd.conf > /etc/hostapd/hostapd.conf
+		read -r -p "Please enter a new ssid: " _SSID
+		# Sentry for the channel selection
+		_SENTRY="0"
+		while [ ${_SENTRY} != "1" ]
+		do
+			read -r -p "Please enter a new channel from 1 to 11: " _CHANNEL
+			if [ ${_CHANNEL} == ${_CHANNEL//[^0-9]/} ] && [ ${_CHANNEL} -lt 12 ]  && [ ${_CHANNEL} -gt 0 ]
+			then
+				echo "You selected channel $_CHANNEL."
+				_SENTRY="1"
+			else
+				echo "Invalid entry received of ${_CHANNEL} ."
+			fi
+		done
+		sed -e "s/0123456789A/${_PASSWORD1}/g" -e "s/RaspberryPiFi/${_SSID}/g" -e "s/channel=8/channel=${_CHANNEL}/g" ./config-files/hostapd.conf > /etc/hostapd/hostapd.conf
 	fi
 	cp ./config-files/hostapd /etc/default
 
