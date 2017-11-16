@@ -95,8 +95,12 @@ then
 		sed -e "s/ROUTER/${_ROUTER}/g" -e "s/DNS/${_DNS}/" ./config-files/udhcpd_template.conf > /etc/udhcpd.conf
 		sed -e "s/ROUTER/${_ROUTER}/g" -e "s/DNS/${_DNS}/" ./config-files/udhcpd_template.conf > /etc/udhcpd.conf
 	fi
-	# Copy in the file to enable udhcpd
+	# Copy in the config file to enable udhcpd
 	cp ./config-files/udhcpd /etc/default
+	# Copy in the systemd udhcpd.service file
+	cp ./config-files/udhcpd.service /lib/systemd/system/
+	# Tell systemd to enable the udhcpd.service
+	servicesystemctl enable udhcpd.service
 
 	echo "Configuring interfaces"
 	if [ -n "${_ROUTER}" ]; then
