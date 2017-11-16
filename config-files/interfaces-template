@@ -6,6 +6,8 @@ auto lo
 iface lo inet loopback
 iface eth0 inet dhcp
 
+auto eth0
+
 auto wlan0
 
 iface wlan0 inet static
