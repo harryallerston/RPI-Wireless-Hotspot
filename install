@@ -118,14 +118,14 @@ then
 	else
 		_PASSWORD1="0"
 		_PASSWORD2="1"
-		read -r -s -p "Please enter a new password atleast 8 characters long (length is not checked): " _PASSWORD1
+		read -r -s -p "Please enter a new password at least 8 characters long (length is not checked): " _PASSWORD1
 		echo
 		read -r -s -p "Please enter the new password again: " _PASSWORD2
 		echo
 		while [ ${_PASSWORD1} != ${_PASSWORD2} ]
 		do
 			echo "Password mismatch please try again."
-			read -r -s -p "Please enter a new password atleast 8 characters long (length is not checked): " _PASSWORD1
+			read -r -s -p "Please enter a new password at least 8 characters long (length is not checked): " _PASSWORD1
 			echo
 			read -r -s -p "Please enter the new password again: " _PASSWORD2
 			echo
