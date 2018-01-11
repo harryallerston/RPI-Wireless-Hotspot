@@ -100,7 +100,7 @@ then
 	# Copy in the systemd udhcpd.service file
 	cp ./config-files/udhcpd.service /lib/systemd/system/
 	# Tell systemd to enable the udhcpd.service
-	servicesystemctl enable udhcpd.service
+	service systemctl enable udhcpd.service
 
 	echo "Configuring interfaces"
 	if [ -n "${_ROUTER}" ]; then
