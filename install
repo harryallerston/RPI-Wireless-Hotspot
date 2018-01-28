@@ -27,41 +27,21 @@ then
 
 	echo "Backing up existing config files"
 
-	if [ -f /etc/udhcpd.conf ]
-	then
-		cp /etc/udhcpd.conf /etc/udhcpd.conf.old
-	fi
+	readonly CONFIG_FILES=(/etc/udhcpd.conf
+		 /etc/default/udhcpd
+		 /etc/network/interfaces
+		 /etc/hostapd/hostapd.conf
+		 /etc/default/hostapd
+		 /etc/sysctl.conf
+		 /etc/iptables.ipv4.nat)
 
-	if [ -f /etc/default/udhcpd ]
-	then
-		cp /etc/default/udhcpd /etc/default/udhcpd.old
-	fi
-
-	if [ -f /etc/network/interfaces ]
-	then
-		cp /etc/network/interfaces /etc/network/interfaces.old
-	fi
-
-	if [ -f /etc/hostapd/hostapd.conf ]
-	then
-		cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.old
-	fi
-
-	if [ -f /etc/default/hostapd ]
-	then
-		cp /etc/default/hostapd /etc/default/hostapd.old
-	fi
-
-	if [ -f /etc/sysctl.conf ]
-	then
-		cp /etc/sysctl.conf /etc/sysctl.conf.old
-	fi
-
-
-	if [ -f /etc/iptables.ipv4.nat ]
-	then
-		cp /etc/iptables.ipv4.nat /etc/iptables.ipv4.nat.old
-	fi
+	for c in ${CONFIG_FILES[*]};
+	do
+		if [ -f ${c} ]
+		then
+			cp ${c} ${c}.old
+		fi
+	done
 
 
 	echo "Config Files backed up"
