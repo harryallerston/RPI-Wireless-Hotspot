@@ -41,7 +41,7 @@ for c in ${CONFIG_FILES[*]};
 do
 	if [ -f ${c} ]
 	then
-		cp ${c} ${c}.old
+		cp -i ${c} ${c}.old
 	fi
 done
 
