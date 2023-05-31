@@ -1,0 +1,11 @@
+[Unit]
+Description=DHCP server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/sbin/udhcpd -f -S /etc/udhcpd.conf
+
+[Install]
+WantedBy=multi-user.target
+
