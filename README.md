@@ -37,9 +37,9 @@ Installation:
 -------------
 
 * In the terminal, run:
-    git clone https://github.com/harryallerston/RPI-Wireless-Hotspot.git
+    `git clone https://github.com/harryallerston/RPI-Wireless-Hotspot.git`
 
-* Navigate to folder, and execute "sudo ./install"
+* Navigate to folder, and execute: `sudo ./install`
 
 * Confirm that you are happy for changes to be made
 
