@@ -8,20 +8,20 @@ or if you just don't feel like buying a router!
 
 Features:
 ---------
+* Hotspot automatically starts on boot without extra configuration.
 
-* Configured hotspot starts automatically on boot, no extra configuration necessary
+* Configured WiFi network uses WPA encryption.
 
-* Configured WiFi network is WPA encrypted.
+* The default SSID is "RaspberryPiFi" and the WPA key is "0123456789A," which can be changed during installation.
 
-* Default SSID of "RaspberryPiFi" and WPA key of "0123456789A" can be modified during install
+* Pi's local network functions continue to operate normally after setup.
 
-* Once set up, the local network facilites of the Pi will still operate as normal
+* Easy setup of custom or preconfigured DNS server, including unblock-us for bypassing Netflix geoblocks.
 
-* Easy setup of either a custom or preconfigured DNS server (including unblock-us for removing netflix geoblocks)
+* Router enumeration for WiFi network.
 
-* Router enumeration for WiFi network
+* Enables Chromecast compatibility with unblock-us by intercepting Google's DNS requests on the Pi.
 
-* Allows chromecast compatibility with unblock-us by intercepting google's DNS requests on the pi
 
 Requirements:
 -------------
@@ -37,9 +37,9 @@ Installation:
 -------------
 
 * In the terminal, run:
-    git clone https://github.com/unixabg/RPI-Wireless-Hotspot.git
+    `git clone https://github.com/harryallerston/RPI-Wireless-Hotspot.git`
 
-* Navigate to folder, and execute "sudo ./install"
+* Navigate to folder, and execute: `sudo ./install`
 
 * Confirm that you are happy for changes to be made
 
@@ -53,11 +53,11 @@ Installation:
 Notes and configuration
 -----------------------
 
-* To change default WiFi channel, edit /etc/hostapd/hostapd.conf accordingly
+* To change default WiFi channel, edit /etc/hostapd/hostapd.conf accordingly.
 
 * This setup has been tested on a fresh install of raspbian.
 
-* It is advised that this be set up on a fresh install
+* It is advised that this be set up on a fresh install.
 
-* If set up on an existing install then any current config files will be backed up with the extension ".old" in the relevant folders prior to installation (this allows returning to original network settings if required)
+* If set up on an existing install then any current config files will be backed up with the extension ".old" in the relevant folders prior to installation. (this allows returning to original network settings if required)
 
